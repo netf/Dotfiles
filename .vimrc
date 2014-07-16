@@ -512,6 +512,16 @@ let g:pymode_syntax_space_errors = g:pymode_syntax_all
 let g:pymode_folding = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => TwitVim
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <Leader>tp :PosttoTwitter<CR>
+nnoremap <Leader>tf :FriendsTwitter<CR>
+nnoremap <Leader>tu :UserTwitter<CR>
+nnoremap <Leader>tm :MentionsTwitter<CR>
+nnoremap <Leader>ts :SearchTwitter<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
