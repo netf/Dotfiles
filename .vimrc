@@ -13,7 +13,7 @@ Plugin 'bling/vim-airline'
 Plugin 'bling/vim-bufferline'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'ujihisa/unite-colorscheme'
-
+Plugin 'vim-scripts/AfterColors.vim'
 
 " Fuzzy search
 Plugin 'Shougo/vimproc.vim'
@@ -129,7 +129,7 @@ autocmd WinEnter * setlocal cursorline
 
 syntax enable            " Enable syntax highlighting
 set background=dark      " Default dark background
-colorscheme jellybeans    " molokai xoria256
+colorscheme xoria256    " molokai xoria256
 
 set t_Co=256             " Enable 256 colours
 set encoding=utf8        " Set utf8 as standard encoding and en_US as the standard language
