@@ -28,9 +28,8 @@ Plugin 'tomtom/tlib_vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'ervandew/supertab'
 Plugin 'honza/vim-snippets'
-Plugin 'vim-scripts/OmniCppComplete'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'klen/python-mode'
+Plugin 'Shougo/neocomplete.vim'
 
 " File browsing
 Plugin 'scrooloose/nerdtree'
@@ -40,8 +39,8 @@ Plugin 'majutsushi/tagbar'
 
 " Syntax
 Plugin 'kchmck/vim-coffee-script'
-Plugin 'jnwhiteh/vim-golang'
 Plugin 'groenewege/vim-less'
+Plugin 'fatih/vim-go'
 Plugin 'othree/html5.vim'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'puppetlabs/puppet-syntax-vim'
@@ -163,7 +162,7 @@ set tw=500
 set ai            " Auto indent
 set si            " Smart indent
 set wrap          " Wrap lines
-set mouse=nicr    " Remove ME
+set mouse=a
 set mousehide
 set number        " line numbers
 set list
@@ -194,6 +193,7 @@ inoremap kj <Esc>
 " Yank to Clipboard 
 nnoremap <C-y> "+y
 vnoremap <C-y> "+y
+set clipboard=unnamed
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -279,13 +279,13 @@ set pastetoggle=<F5> " Hit f5 before pasting into terminal
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Tagbar 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>t :TagbarToggle<CR>
+map <C-e> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Nerd Tree
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let NERDTreeIgnore=['\~$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-:nmap ,e :NERDTreeToggle<CR>
+:nmap <C-n> :NERDTreeToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => YCM
@@ -347,33 +347,48 @@ let g:airline_right_sep = '◀'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Golang 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
+autocmd FileType go autocmd BufWritePre <buffer> GoFmt
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Supertab + Omnicomplete 
+" => Autocomplete
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:SuperTabDefaultCompletionType = "context"
-let g:clang_complete_copen = 1
-let g:clang_snippets = 1
-let g:clang_use_library = 1
-map <leader>a :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-set omnifunc=syntaxcomplete#Complete " override built-in C omnicomplete with C++ OmniCppComplete plugin
-let OmniCpp_GlobalScopeSearch   = 1
-let OmniCpp_DisplayMode         = 1
-let OmniCpp_ShowScopeInAbbr     = 0 "do not show namespace in pop-up
-let OmniCpp_ShowPrototypeInAbbr = 1 "show prototype in pop-up
-let OmniCpp_ShowAccess          = 1 "show access in pop-up
-let OmniCpp_SelectFirstItem     = 1 "select first item in pop-up
-set completeopt=menuone,menu,longest
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+let g:neocomplete#enable_at_startup = 1
+" Use smartcase.
+let g:neocomplete#enable_smart_case = 1
+let g:tagbar_type_go = {  
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+    \ }
 
+" Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
